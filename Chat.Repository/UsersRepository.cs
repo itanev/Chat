@@ -9,25 +9,25 @@ namespace Chat.Repository
 {
     public class UsersRepository : IRepository<User>
     {
-        private MongoCollection Users { get; set; }
+        private MongoCollection users;
 
         public UsersRepository(string connectionString)
         {
             //var connectionString = "mongodb://localhost";
             var client = new MongoClient(connectionString);
-            var server = MongoServer.Create(connectionString);
+            var server = client.GetServer();
             var db = server.GetDatabase("chat");
-            this.Users = db.GetCollection<User>("users");
+            this.users = db.GetCollection<User>("users");
         }
 
         public void Add(User user)
         {
-            this.Users.Insert(user);
+            this.users.Insert(user);
         }
 
         public IQueryable<User> All()
         {
-            return this.Users.AsQueryable<User>();
+            return this.users.AsQueryable<User>();
         }
     }
 }

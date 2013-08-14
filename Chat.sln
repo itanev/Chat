@@ -5,6 +5,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.Models", "Chat.Models\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.Repository", "Chat.Repository\Chat.Repository.csproj", "{038DD9CA-FB9E-4255-9668-37FCC769811C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.Services", "Chat.Services\Chat.Services.csproj", "{8029BF30-99ED-4D82-9CCC-C57E8C460732}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chat.Client", "Chat.Client\Chat.Client.csproj", "{1182480C-4E3F-4833-96FB-7770BAE1B635}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +23,14 @@ Global
 		{038DD9CA-FB9E-4255-9668-37FCC769811C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{038DD9CA-FB9E-4255-9668-37FCC769811C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{038DD9CA-FB9E-4255-9668-37FCC769811C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8029BF30-99ED-4D82-9CCC-C57E8C460732}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8029BF30-99ED-4D82-9CCC-C57E8C460732}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8029BF30-99ED-4D82-9CCC-C57E8C460732}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8029BF30-99ED-4D82-9CCC-C57E8C460732}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1182480C-4E3F-4833-96FB-7770BAE1B635}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1182480C-4E3F-4833-96FB-7770BAE1B635}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1182480C-4E3F-4833-96FB-7770BAE1B635}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1182480C-4E3F-4833-96FB-7770BAE1B635}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

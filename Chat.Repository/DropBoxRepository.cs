@@ -15,7 +15,7 @@ namespace Chat.Repository
         {
             //var connectionString = "mongodb://localhost";
             var client = new MongoClient(connectionString);
-            var server = MongoServer.Create(connectionString);
+            var server = client.GetServer();
             var db = server.GetDatabase("chat");
             this.AccessTokens = db.GetCollection<Dropbox>("dropbox");
         }
