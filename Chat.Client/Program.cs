@@ -30,8 +30,10 @@ namespace Chat.Client
             //dropboxRepo.Add(new Dropbox { Value = "5hq4n8kjyopqzje", Secret = "22h4xl0x1g569af" });
             //dropboxRepo.Add(new Dropbox { Value = "mightymouse@cloudserv.com", Secret = "telerikacademy" });
 
-            var dropboxController = new DropboxController();
+            //var dropboxController = new DropboxController();
             //dropboxController.DropboxShareFile();
+
+            UsersController userController = new UsersController();
         }
     }
 }

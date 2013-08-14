@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Chat.Models;
+using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.Builders;
 using MongoDB.Driver.Linq;
 
 namespace Chat.Repository
@@ -28,6 +30,16 @@ namespace Chat.Repository
         public IQueryable<User> All()
         {
             return this.users.AsQueryable<User>();
+        }
+
+
+        public User Update(User entity)
+        {
+            entity.IsOnline = !entity.IsOnline;
+            var query = Query.EQ("UserName", entity.UserName);
+            var update = new UpdateDocument { { "$set", new BsonDocument("IsOnline", entity.IsOnline.ToString()) } };
+            this.users.Update(query, update);
+            return entity;
         }
     }
 }

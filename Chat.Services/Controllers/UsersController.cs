@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Chat.Services.Models;
 using Chat.Repository;
 using Chat.Models;
 using System.Configuration;
@@ -19,43 +18,32 @@ namespace Chat.Services.Controllers
         {
             this.data = new UsersRepository(
                 ConfigurationManager.AppSettings["MongoConnectionString"]);
-        }
+        }        
 
         [HttpPost]
-        [ActionName("register")]
-        public HttpResponseMessage RegisterUser(UserModel userModel)
+        public HttpResponseMessage RegisterOrLoginUser(User user)
         {
-            var user = new User { UserName = userModel.Username, Password = userModel.AuthCode };
+            var userFromData = this.data.All()
+                .Where(x => x.UserName == user.UserName)
+                .FirstOrDefault();
+            if (userFromData != null)
+            {
+                return this.Request.CreateResponse(HttpStatusCode.OK, userFromData);
+            }
+
             this.data.Add(user);
-            var response = this.Request.CreateResponse(HttpStatusCode.Created, user);
+            var updatedUser = this.data.Update(user);
+            var response = this.Request.CreateResponse(HttpStatusCode.Created, updatedUser);
             return response;
         }
 
-        // GET api/users
-        public IEnumerable<string> Get()
+        [HttpPut]
+        public HttpResponseMessage LogoutUser(User user)
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/users/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/users
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/users/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/users/5
-        public void Delete(int id)
-        {
+            var entity = this.data.All().Where(x => x.UserName == user.UserName).First();
+            var updatedUser = this.data.Update(entity);
+            var response = this.Request.CreateResponse(HttpStatusCode.OK, updatedUser);
+            return response;
         }
     }
 }

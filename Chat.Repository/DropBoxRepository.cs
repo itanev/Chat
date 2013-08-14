@@ -29,5 +29,11 @@ namespace Chat.Repository
         {
             return this.AccessTokens.AsQueryable<Dropbox>();
         }
+
+
+        public Dropbox Update(Dropbox entity)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
