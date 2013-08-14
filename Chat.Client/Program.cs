@@ -31,7 +31,7 @@ namespace Chat.Client
             //dropboxRepo.Add(new Dropbox { Value = "mightymouse@cloudserv.com", Secret = "telerikacademy" });
 
             var dropboxController = new DropboxController();
-            dropboxController.DropboxShareFile();
+            //dropboxController.DropboxShareFile();
         }
     }
 }

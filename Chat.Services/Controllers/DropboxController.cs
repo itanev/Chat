@@ -13,6 +13,7 @@ using Spring.Social.Dropbox.Api;
 using Spring.Social.Dropbox.Connect;
 using Spring.IO;
 using System.Diagnostics;
+using System.IO;
 
 namespace Chat.Services.Controllers
 {
@@ -28,23 +29,34 @@ namespace Chat.Services.Controllers
                 ConfigurationManager.AppSettings["MongoConnectionString"]);
         }
 
-        public void DropboxShareFile()
+        public void DropboxShareFile(byte[] byteArr)
         {
             DropboxServiceProvider dropboxServiceProvider =
                 new DropboxServiceProvider(this.appAuth.Value, this.appAuth.Secret, AccessLevel.AppFolder);
             IDropbox dropbox = dropboxServiceProvider.GetApi(this.userAuth.Value, this.userAuth.Secret);
 
+            //Entry uploadFileEntry = dropbox.UploadFileAsync(
+            //    new FileResource("../../../test.txt"), "test.txt").Result;
+
             Entry uploadFileEntry = dropbox.UploadFileAsync(
-                new FileResource("../../../test.txt"), "test.txt").Result;
+                new ByteArrayResource(byteArr), "test.txt").Result;
 
             var sharedUrl = dropbox.GetMediaLinkAsync(uploadFileEntry.Path).Result;
             Process.Start(sharedUrl.Url + "?dl=1"); // we can download the file directly
         }
 
         [HttpPost]
-        public void PostFile()
+        public void PostFile(string byteArrString)
         {
+            var byteArr = GetBytes(byteArrString);
+            DropboxShareFile(byteArr);
+        }
 
+        static byte[] GetBytes(string str)
+        {
+            byte[] bytes = new byte[str.Length * sizeof(char)];
+            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
+            return bytes;
         }
     }
 }
