@@ -17,16 +17,8 @@ namespace Chat.Services.Controllers
         public UsersController()
         {
             this.data = new UsersRepository(
-                ConfigurationManager.AppSettings["MongoConnectionString"], 
-                ConfigurationManager.AppSettings["Database"]);
-        }
-
-        [HttpGet]
-        public IEnumerable<User> GetAllUsers()
-        {
-            var users = this.data.All().ToList();
-            return users;
-        }
+                ConfigurationManager.AppSettings["MongoConnectionString"]);
+        }        
 
         [HttpPost]
         public HttpResponseMessage RegisterOrLoginUser(User user)

@@ -13,12 +13,12 @@ namespace Chat.Repository
     {
         private MongoCollection users;
 
-        public UsersRepository(string connectionString, string database)
+        public UsersRepository(string connectionString)
         {
             //var connectionString = "mongodb://localhost";
             var client = new MongoClient(connectionString);
             var server = client.GetServer();
-            var db = server.GetDatabase(database);
+            var db = server.GetDatabase("chat");
             this.users = db.GetCollection<User>("users");
         }
 

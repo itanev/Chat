@@ -11,12 +11,12 @@ namespace Chat.Repository
     {
         private MongoCollection AccessTokens { get; set; }
 
-        public DropBoxRepository(string connectionString, string database)
+        public DropBoxRepository(string connectionString)
         {
             //var connectionString = "mongodb://localhost";
             var client = new MongoClient(connectionString);
             var server = client.GetServer();
-            var db = server.GetDatabase(database);
+            var db = server.GetDatabase("chat");
             this.AccessTokens = db.GetCollection<Dropbox>("dropbox");
         }
 

@@ -21,8 +21,7 @@ namespace Chat.Services.Controllers
         public DropboxController()
         {
             this.data = new DropBoxRepository(
-                ConfigurationManager.AppSettings["MongoConnectionString"],
-                ConfigurationManager.AppSettings["Database"]);
+                ConfigurationManager.AppSettings["MongoConnectionString"]);
         }
 
         private string DropboxShareFile(string path, string filename)
