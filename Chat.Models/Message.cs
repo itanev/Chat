@@ -1,6 +1,6 @@
 ﻿namespace Chat.Models
 {
-    class Message
+    public class Message
     {
         public string Content { get; set; }
         public int SenderId { get; set; }

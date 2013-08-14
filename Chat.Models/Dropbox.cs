@@ -2,7 +2,7 @@
 
 namespace Chat.Models
 {
-    class Dropbox
+    public class Dropbox
     {
         [BsonId]
         public int Id { get; set; }
