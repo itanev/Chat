@@ -6,8 +6,6 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using Chat.Services.App_Start;
-using Thinktecture.IdentityModel.Http.Cors.Mvc;
 
 namespace Chat.Services
 {
@@ -27,7 +25,6 @@ namespace Chat.Services
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            CorsConfig.RegisterCors(GlobalConfiguration.Configuration);
         }
     }
 }
