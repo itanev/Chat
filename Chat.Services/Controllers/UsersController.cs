@@ -17,7 +17,8 @@ namespace Chat.Services.Controllers
         public UsersController()
         {
             this.data = new UsersRepository(
-                ConfigurationManager.AppSettings["MongoConnectionString"]);
+                ConfigurationManager.AppSettings["MongoConnectionString"], 
+                ConfigurationManager.AppSettings["Database"]);
         }        
 
         [HttpPost]
