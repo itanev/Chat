@@ -11,12 +11,11 @@ namespace Chat.Repository
     {
         private MongoCollection AccessTokens { get; set; }
 
-        public DropBoxRepository(string connectionString)
+        public DropBoxRepository(string connectionString, string database)
         {
-            //var connectionString = "mongodb://localhost";
             var client = new MongoClient(connectionString);
             var server = client.GetServer();
-            var db = server.GetDatabase("chat");
+            var db = server.GetDatabase(database);
             this.AccessTokens = db.GetCollection<Dropbox>("dropbox");
         }
 
@@ -31,7 +30,7 @@ namespace Chat.Repository
         }
 
 
-        public Dropbox Update(Dropbox entity)
+        public Dropbox UpdateStatus(Dropbox entity)
         {
             throw new NotImplementedException();
         }

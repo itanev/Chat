@@ -12,12 +12,13 @@ namespace Chat.Services.Controllers
 {
     public class UsersController : ApiController
     {
-        private IRepository<User> data;
+        private UsersRepository data;
 
         public UsersController()
         {
             this.data = new UsersRepository(
-                ConfigurationManager.AppSettings["MongoConnectionString"]);
+                ConfigurationManager.AppSettings["MongoConnectionString"], 
+                ConfigurationManager.AppSettings["Database"]);
         }        
 
         [HttpPost]
@@ -28,11 +29,14 @@ namespace Chat.Services.Controllers
                 .FirstOrDefault();
             if (userFromData != null)
             {
+                ICollection<Message> userMessages = userFromData.UnreceivedMessages;
+                userFromData = this.data.UpdateStatus(userFromData);
+                userFromData = this.data.DeleteMessages(userFromData);
                 return this.Request.CreateResponse(HttpStatusCode.OK, userFromData);
             }
 
             this.data.Add(user);
-            var updatedUser = this.data.Update(user);
+            var updatedUser = this.data.UpdateStatus(user);
             var response = this.Request.CreateResponse(HttpStatusCode.Created, updatedUser);
             return response;
         }
@@ -41,7 +45,7 @@ namespace Chat.Services.Controllers
         public HttpResponseMessage LogoutUser(User user)
         {
             var entity = this.data.All().Where(x => x.UserName == user.UserName).First();
-            var updatedUser = this.data.Update(entity);
+            var updatedUser = this.data.UpdateStatus(entity);
             var response = this.Request.CreateResponse(HttpStatusCode.OK, updatedUser);
             return response;
         }

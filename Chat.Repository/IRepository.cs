@@ -10,6 +10,6 @@ namespace Chat.Repository
     {
         void Add(T entity);
         IQueryable<T> All();
-        T Update(T entity);
+        T UpdateStatus(T entity);
     }
 }
