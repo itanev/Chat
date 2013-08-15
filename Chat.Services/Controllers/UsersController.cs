@@ -34,12 +34,11 @@ namespace Chat.Services.Controllers
                 .FirstOrDefault();
             if (userFromData != null)
             {
-                ICollection<Message> userMessages = userFromData.UnreceivedMessages;
                 User resultUser = new User()
                 {
                     Id = userFromData.Id,
                     UserName = userFromData.UserName,
-                    UnreceivedMessages = userFromData.UnreceivedMessages
+                    UnreceivedMessages = new List<Message>(userFromData.UnreceivedMessages)
                 };
 
                 userFromData = this.data.UpdateStatus(userFromData);
