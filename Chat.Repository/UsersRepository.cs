@@ -42,6 +42,11 @@ namespace Chat.Repository
             return entity;
         }
 
+        public void UpdateMessages(User entity)
+        {
+            this.users.Save(entity, SafeMode.True);
+        }
+
         public User DeleteMessages(User entity)
         {
             entity.UnreceivedMessages.Clear();

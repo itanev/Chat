@@ -13,7 +13,7 @@ namespace Chat.Services.Controllers
 {
     public class MessageController : ApiController
     {
-        private IRepository<User> data;
+        private UsersRepository data;
 
         public MessageController()
         {
@@ -29,7 +29,7 @@ namespace Chat.Services.Controllers
             var currUser = this.data.All().Where(x => x.Id == receiverId).First();
 
             currUser.UnreceivedMessages.Add(message);
-            this.data.UpdateStatus(currUser);
+            this.data.UpdateMessages(currUser);
 
             return new HttpResponseMessage(HttpStatusCode.OK);
         }
