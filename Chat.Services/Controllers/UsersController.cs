@@ -30,7 +30,7 @@ namespace Chat.Services.Controllers
         public HttpResponseMessage RegisterOrLoginUser(User user)
         {
             var userFromData = this.data.All()
-                .Where(x => x.UserName == user.UserName && x.Password == user.Password)
+                .Where(x => x.UserName == user.UserName && x.Password == user.Password)  
                 .FirstOrDefault();
             if (userFromData != null)
             {
@@ -38,6 +38,7 @@ namespace Chat.Services.Controllers
                 {
                     Id = userFromData.Id,
                     UserName = userFromData.UserName,
+                    IsOnline = userFromData.IsOnline,
                     UnreceivedMessages = new List<Message>(userFromData.UnreceivedMessages)
                 };
 
@@ -55,9 +56,9 @@ namespace Chat.Services.Controllers
         [HttpPut]
         public HttpResponseMessage LogoutUser(User user)
         {
-            var entity = this.data.All().Where(x => x.UserName == user.UserName).First();
+            var entity = this.data.All().Where(x => x.Id == user.Id).First();
             var updatedUser = this.data.UpdateStatus(entity);
-            var response = this.Request.CreateResponse(HttpStatusCode.OK, updatedUser);
+            var response = this.Request.CreateResponse(HttpStatusCode.OK);
             return response;
         }
     }
