@@ -30,10 +30,16 @@ namespace Chat.Services.Controllers
         public HttpResponseMessage RegisterOrLoginUser(User user)
         {
             var userFromData = this.data.All()
-                .Where(x => x.UserName == user.UserName && x.Password == user.Password)  
+                .Where(x => x.UserName == user.UserName)  
                 .FirstOrDefault();
+
             if (userFromData != null)
             {
+                if (userFromData.Password != user.Password)
+                {
+                    return this.Request.CreateErrorResponse(HttpStatusCode.BadRequest, "Incorrect password!");
+                }
+
                 User resultUser = new User()
                 {
                     Id = userFromData.Id,
@@ -42,13 +48,13 @@ namespace Chat.Services.Controllers
                     UnreceivedMessages = new List<Message>(userFromData.UnreceivedMessages)
                 };
 
-                userFromData = this.data.UpdateStatus(userFromData);
+                userFromData = this.data.UpdateStatus(userFromData, true);
                 userFromData = this.data.DeleteMessages(userFromData);
                 return this.Request.CreateResponse(HttpStatusCode.OK, resultUser);
             }
 
             this.data.Add(user);
-            var updatedUser = this.data.UpdateStatus(user);
+            var updatedUser = this.data.UpdateStatus(user, true);
             var response = this.Request.CreateResponse(HttpStatusCode.Created, updatedUser);
             return response;
         }
@@ -57,7 +63,7 @@ namespace Chat.Services.Controllers
         public HttpResponseMessage LogoutUser(User user)
         {
             var entity = this.data.All().Where(x => x.Id == user.Id).First();
-            var updatedUser = this.data.UpdateStatus(entity);
+            var updatedUser = this.data.UpdateStatus(entity, false);
             var response = this.Request.CreateResponse(HttpStatusCode.OK);
             return response;
         }

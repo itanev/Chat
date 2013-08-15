@@ -33,9 +33,9 @@ namespace Chat.Repository
         }
 
 
-        public User UpdateStatus(User entity)
+        public User UpdateStatus(User entity, bool status)
         {
-            entity.IsOnline = !entity.IsOnline;
+            entity.IsOnline = status;
             var query = Query.EQ("UserName", entity.UserName);
             var update = new UpdateDocument { { "$set", new BsonDocument("IsOnline", entity.IsOnline.ToString()) } };
             this.users.Update(query, update);

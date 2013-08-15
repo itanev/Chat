@@ -30,7 +30,7 @@ namespace Chat.Repository
         }
 
 
-        public Dropbox UpdateStatus(Dropbox entity)
+        public Dropbox UpdateStatus(Dropbox entity, bool status)
         {
             throw new NotImplementedException();
         }
