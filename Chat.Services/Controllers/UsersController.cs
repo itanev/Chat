@@ -35,9 +35,16 @@ namespace Chat.Services.Controllers
             if (userFromData != null)
             {
                 ICollection<Message> userMessages = userFromData.UnreceivedMessages;
+                User resultUser = new User()
+                {
+                    Id = userFromData.Id,
+                    UserName = userFromData.UserName,
+                    UnreceivedMessages = userFromData.UnreceivedMessages
+                };
+
                 userFromData = this.data.UpdateStatus(userFromData);
                 userFromData = this.data.DeleteMessages(userFromData);
-                return this.Request.CreateResponse(HttpStatusCode.OK, userFromData);
+                return this.Request.CreateResponse(HttpStatusCode.OK, resultUser);
             }
 
             this.data.Add(user);
