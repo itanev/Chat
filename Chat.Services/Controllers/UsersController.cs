@@ -30,7 +30,7 @@ namespace Chat.Services.Controllers
         public HttpResponseMessage RegisterOrLoginUser(User user)
         {
             var userFromData = this.data.All()
-                .Where(x => x.UserName == user.UserName)
+                .Where(x => x.UserName == user.UserName && x.Password == user.Password)
                 .FirstOrDefault();
             if (userFromData != null)
             {
